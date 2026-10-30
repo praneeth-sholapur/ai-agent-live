@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Praneeth Sholapur, Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6f9; --surface:#ffffff; --surface2:#eef1f5; --ink:#101c2e; --muted:#4b5a6e; --line:#d9e0ea;
+    --navy:#10233f; --navy2:#162f55; --accent:#0f766e; --accent-ink:#ffffff; --teal-bright:#2dd4bf;
+    --gold:#b7791f; --gold-bg:#fdf3d8; --chip:#e8eef6; --shadow:0 18px 50px rgba(16,35,63,.16); --radius:16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b1422; --surface:#111e33; --surface2:#16273f; --ink:#eaf0f8; --muted:#a9b8cc; --line:#263a55;
+      --navy:#0d1b30; --navy2:#132741; --accent:#2dd4bf; --accent-ink:#06231f; --gold:#e8b84b; --gold-bg:#2a2410;
+      --chip:#1b2f4d; --shadow:0 18px 50px rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Libre Franklin",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);text-underline-offset:3px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 130px}
+  /* Hero */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy),var(--navy2) 70%);color:#eef3fa;margin:0 -20px;padding:34px 20px 30px;border-radius:0 0 22px 22px}
+  @media(min-width:760px){.hero{margin:18px 0 0;padding:46px 40px 38px;border-radius:22px}}
+  .hero::after{content:"SELECT * FROM praneeth WHERE impact > 0;  -- 9,550,000 rows in, answers out";position:absolute;right:-10px;bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:rgba(255,255,255,.20);white-space:nowrap;pointer-events:none}
+  .hero-inner{position:relative;z-index:1;max-width:980px;margin:0 auto}
+  .status{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600}
+  .dot{width:8px;height:8px;border-radius:50%;background:#34d399;flex:none;box-shadow:0 0 0 0 rgba(52,211,153,.6)}
+  @media (prefers-reduced-motion: no-preference){.dot{animation:pulse 2s infinite}@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}}
+  h1{font-family:"Newsreader",Georgia,serif;font-size:clamp(40px,6.5vw,62px);line-height:1.0;margin:18px 0 6px;font-weight:600;letter-spacing:-.01em}
+  .role{font-size:clamp(17px,2.4vw,21px);color:#bcd0ea;font-weight:500;margin:0 0 8px}
+  .rotator-line{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--teal-bright);min-height:22px;margin:0 0 14px}
+  .hero p.lede{font-size:16.5px;color:#dbe6f4;max-width:660px;margin:0 0 20px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#e6eef8;padding:6px 11px;border-radius:999px;font-size:13px;font-weight:600}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:10px;font-weight:700;font-size:14.5px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
+  .btn-primary{background:#2dd4bf;color:#06231f}
+  .btn-ghost{background:transparent;color:#eef3fa;border-color:rgba(255,255,255,.35)}
+  .btn-dark{background:var(--navy);color:#fff}
+  @media (prefers-color-scheme: dark){.btn-dark{background:#eaf0f8;color:#10233f}}
+  .btn-teal{background:var(--accent);color:var(--accent-ink)}
+  .btn-outline{background:var(--surface);color:var(--ink);border-color:var(--line)}
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+  @media(min-width:700px){.facts{grid-template-columns:repeat(4,1fr)}}
+  .fact{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px}
+  .fact b{display:block;font-size:22px;font-family:"Newsreader",serif}
+  .fact span{font-size:12.5px;color:#b9cbe4}
+  /* Ticker */
+  .ticker{margin:16px 0 0;background:var(--navy);color:#cfe0f2;border-radius:12px;overflow:hidden;padding:10px 0;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .ticker-track{display:flex;gap:0;white-space:nowrap;width:max-content}
+  @media (prefers-reduced-motion: no-preference){.ticker-track{animation:tick 36s linear infinite}@keyframes tick{to{transform:translateX(-50%)}}}
+  .ticker span{padding:0 14px}
+  .ticker b{color:var(--teal-bright);font-weight:600}
+  /* Agent callout */
+  .agent-callout{margin:22px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 4px 18px rgba(16,35,63,.06)}
+  .avatar{width:52px;height:52px;border-radius:14px;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:"Newsreader",serif;font-size:22px;font-weight:700;flex:none}
+  @media (prefers-color-scheme: dark){.avatar{background:#2dd4bf;color:#06231f}}
+  .agent-callout h2{margin:0 0 4px;font-size:19px}
+  .agent-callout p{margin:0 0 12px;color:var(--muted);font-size:14.5px}
+  .mood-row{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}
+  .mood-row span{font-size:12px;font-weight:700;background:var(--chip);border-radius:999px;padding:5px 10px}
+  /* Sections */
+  section{margin-top:40px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-head h2{font-family:"Newsreader",Georgia,serif;font-size:29px;margin:0;font-weight:600}
+  .sec-head p{margin:0;color:var(--muted);font-size:14px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3.big{margin:0 0 6px;font-size:19px}
+  .sub{margin:0;color:var(--muted);font-size:15px;max-width:740px}
+  /* Speedrun */
+  .speedrun{background:var(--navy);color:#eef3fa;border:none}
+  .speedrun h3{color:#fff}
+  .speedrun p{color:#c9daef;font-size:15.5px;max-width:760px}
+  .speedrun .btn-outline{background:transparent;color:#eef3fa;border-color:rgba(255,255,255,.4)}
+  .speed-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+  @media(min-width:700px){.speed-stats{grid-template-columns:repeat(4,1fr)}}
+  .speed-stats div{border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px}
+  .speed-stats b{display:block;font-size:19px;color:#fff}
+  .speed-stats span{font-size:12.5px;color:#b9cbe4}
+  /* Pipeline explorer */
+  .pipe{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+  @media(min-width:700px){.pipe{flex-direction:row;align-items:stretch}}
+  .stage{flex:1;background:var(--surface2);border:2px solid transparent;border-radius:12px;padding:14px;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;width:100%}
+  .stage b{display:block;font-size:15px;margin-bottom:2px}
+  .stage span{font-size:13px;color:var(--muted)}
+  .stage[aria-pressed="true"]{border-color:var(--accent)}
+  .arrow{display:grid;place-items:center;color:var(--muted);font-weight:700;padding:2px}
+  .stage-detail{background:var(--surface2);border-radius:12px;padding:16px;font-size:14.5px}
+  .stage-detail b{display:block;margin-bottom:4px;font-size:15px}
+  .stage-detail p{margin:0;color:var(--muted)}
+  .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+  @media(min-width:700px){.metrics{grid-template-columns:repeat(4,1fr)}}
+  .metric{border:1px solid var(--line);border-radius:12px;padding:12px}
+  .metric b{display:block;font-size:19px}
+  .metric span{font-size:12.5px;color:var(--muted)}
+  .tagrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .tag{background:var(--chip);padding:5px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
+  /* Numbers */
+  .numgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(min-width:700px){.numgrid{grid-template-columns:repeat(4,1fr)}}
+  .num{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .num b{display:block;font-family:"Newsreader",serif;font-size:27px;line-height:1.1}
+  .num span{font-size:13px;color:var(--muted)}
+  /* Timeline */
+  .job{padding:20px 0;border-bottom:1px solid var(--line)}
+  .job:last-child{border-bottom:none;padding-bottom:4px}
+  .job-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;align-items:baseline}
+  .job h3{margin:0;font-size:17px}
+  .job .when{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .job .co{color:var(--accent);font-weight:700;font-size:14px;margin:2px 0 6px}
+  .job p{margin:0 0 8px;color:var(--muted);font-size:14.5px;max-width:740px}
+  .job ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;max-width:740px}
+  .job li{margin-bottom:4px}
+  /* Skills explorer */
+  .skill-grid{display:grid;gap:18px}
+  @media(min-width:700px){.skill-grid{grid-template-columns:1fr 1fr 1fr}}
+  .skill-grid h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .skill-list{display:flex;flex-wrap:wrap;gap:7px}
+  .skill{background:var(--chip);border:2px solid transparent;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;font-family:inherit;color:var(--ink);cursor:pointer;text-align:left}
+  .skill small{color:var(--muted);font-weight:500}
+  .skill[aria-pressed="true"]{border-color:var(--accent)}
+  .skill-detail{margin-top:16px;background:var(--surface2);border-radius:12px;padding:16px;font-size:14.5px}
+  .skill-detail b{display:block;margin-bottom:4px}
+  .skill-detail p{margin:0;color:var(--muted)}
+  .two{display:grid;gap:14px}
+  @media(min-width:700px){.two{grid-template-columns:1fr 1fr}}
+  .two h3{margin:0 0 8px;font-size:16px}
+  .two ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+  .two li{margin-bottom:5px}
+  .principles{display:grid;gap:12px}
+  @media(min-width:700px){.principles{grid-template-columns:1fr 1fr 1fr}}
+  .principle{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .principle .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:600}
+  .principle h3{margin:6px 0 6px;font-size:16px}
+  .principle p{margin:0;color:var(--muted);font-size:14px}
+  .reco{border-left:3px solid var(--gold);background:var(--gold-bg);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14.5px}
+  .reco b{display:block;margin-bottom:4px}
+  /* FAQ */
+  details.faq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  details.faq summary{font-weight:700;cursor:pointer;font-size:15px}
+  details.faq p{margin:8px 0 2px;color:var(--muted);font-size:14.5px;max-width:740px}
+  footer{margin-top:48px;text-align:center;color:var(--muted);font-size:13.5px}
+  footer .foot-note{max-width:560px;margin:10px auto 0}
+  /* Chat */
+  .chat-launch{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;border:none;border-radius:999px;padding:13px 18px;font-family:inherit;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:var(--shadow)}
+  @media (prefers-color-scheme: dark){.chat-launch{background:#2dd4bf;color:#06231f}}
+  .chat-launch .pulse{width:9px;height:9px;border-radius:50%;background:#34d399;flex:none}
+  @media (prefers-color-scheme: dark){.chat-launch .pulse{background:#0f766e}}
+  .chat-panel{position:fixed;right:16px;bottom:16px;z-index:70;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100dvh - 32px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex}
+  @media(max-width:520px){.chat-panel{right:8px;bottom:8px;width:calc(100vw - 16px);height:calc(100dvh - 16px)}}
+  .chat-head{background:var(--navy);color:#fff;padding:14px 16px;display:flex;gap:12px;align-items:center}
+  .chat-head .avatar{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.14);color:#fff;font-size:18px}
+  .chat-head b{display:block;font-size:15px;line-height:1.2}
+  .chat-head span{font-size:12.5px;color:#b9cbe4}
+  .chat-close{margin-left:auto;background:rgba(255,255,255,.12);color:#fff;border:none;width:32px;height:32px;border-radius:8px;font-size:17px;cursor:pointer;flex:none}
+  .chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+  .msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+  .msg.bot{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+  .msg.user{background:var(--navy);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+  @media (prefers-color-scheme: dark){.msg.user{background:#2dd4bf;color:#06231f}}
+  .msg a{font-weight:600}
+  .msg .rec-card{display:block;margin-top:8px;background:var(--surface2);border-radius:10px;padding:10px 12px;font-size:13.5px}
+  .quick{display:flex;flex-wrap:wrap;gap:7px;padding:10px 14px 4px;background:var(--bg)}
+  .quick button{background:var(--surface);border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+  .quick button:active{transform:scale(.97)}
+  .chat-form{display:flex;gap:8px;padding:10px 12px 14px;background:var(--bg)}
+  .chat-form input{flex:1;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:11px 12px;font-size:14.5px;font-family:inherit;min-width:0}
+  .chat-form button{background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer;font-family:inherit}
+  .lead-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .lead-box label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:8px 0 4px}
+  .lead-box label:first-child{margin-top:0}
+  .lead-box input{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--ink)}
+  .lead-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .lead-actions a,.lead-actions button{font-size:13px;padding:9px 12px}
+  .typing{align-self:flex-start;color:var(--muted);font-size:13px;padding:4px 6px;font-family:"IBM Plex Mono",monospace}
+  .copy-ok{font-size:13px;color:var(--accent);font-weight:700;margin-left:6px}
+  @media (prefers-reduced-motion: no-preference){
+    .chat-panel.open{animation:rise .22s ease-out}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="status"><span class="dot"></span> Open to Data Engineer roles · Santa Clara, CA</span>
+      <h1>Praneeth Sholapur</h1>
+      <p class="role">Data Engineer · Azure, AWS &amp; GCP · dbt &amp; Databricks certified</p>
+      <p class="rotator-line" aria-live="polite">&gt; building <span id="rotator">pipelines people can trust_</span></p>
+      <p class="lede">I build data pipelines that people can trust. Five years across Azure, AWS, and GCP, working on payments data at PayPal, healthcare data at HCA, and cloud platforms before that. I like clean models, tested code, and numbers that add up. If a number cannot be traced back to its source file, I do not ship it. That is the whole philosophy, really.</p>
+      <div class="chips" aria-label="Core stack">
+        <span class="chip">Python · 5 yrs</span><span class="chip">SQL · 5 yrs</span><span class="chip">Spark / PySpark · 5 yrs</span><span class="chip">Azure</span><span class="chip">Databricks · 2 yrs</span><span class="chip">Kafka · 4 yrs</span><span class="chip">dbt · 4 yrs</span><span class="chip">Airflow</span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="heroChatBtn" type="button">Talk to my AI assistant</button>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/praneeth-sholapur" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/praneeth-sholapur/nyc-taxi-data-pipeline" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://dev.to/praneeth7/from-monthly-files-to-trusted-metrics-engineering-an-incremental-pipeline-for-95-million-nyc-taxi-22ni" target="_blank" rel="noopener">dev.to article</a>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>5 years</b><span>Data engineering, 4 roles, 3 clouds</span></div>
+        <div class="fact"><b>9.55M rows</b><span>Processed and reconciled in my flagship build</span></div>
+        <div class="fact"><b>27 tests</b><span>Guarding that build, Ruff + Pytest</span></div>
+        <div class="fact"><b>2 certs</b><span>dbt Certified Developer · Databricks Associate</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+  <div class="agent-callout">
+    <div class="avatar" aria-hidden="true">P</div>
+    <div style="flex:1;min-width:240px">
+      <h2>Meet the assistant. It knows me embarrassingly well.</h2>
+      <div class="mood-row"><span>Conversational</span><span>Knows every role &amp; number</span><span>Funny when it helps</span><span>Honest when it doesn't know</span></div>
+      <p>Tell it who you are and it changes mode. Recruiter? It matches me to your role and skips the generic pitch. Engineer? It goes straight to architecture, data quality, and benchmarks. Curious human? It gives you the tour. Ask it for a joke, a fun fact, or the 30-second pitch. It answers from my real profile and project data, and it will say so when something is not in there, rather than inventing it.</p>
+      <button class="btn btn-teal" id="calloutChatBtn" type="button">Start a conversation</button>
+      <button class="btn btn-outline" id="calloutJokeBtn" type="button">Start with a joke</button>
+    </div>
+  </div>
+
+  <section aria-label="Recruiter speedrun">
+    <div class="card speedrun">
+      <h3 class="big">The recruiter speedrun: everything in 30 seconds</h3>
+      <p>Five years. Python, SQL, and Spark for five of them. Currently Azure Data Engineer at PayPal in San Jose, building pipelines and RAG retrieval with Pinecone. Before that, two years on AWS at HCA Healthcare working with governed, sensitive data. Before that, GCP at Zensar and a first data role at Titan, both in Bengaluru. dbt Certified Developer, Databricks Certified Data Engineer Associate, Master's in Business Analytics from the University of the Pacific. Based in Santa Clara, open to onsite, hybrid, remote, and relocation. Target: mid to senior Data Engineer roles.</p>
+      <div class="speed-stats">
+        <div><b>PayPal · Azure</b><span>Current role, since Feb 2026</span></div>
+        <div><b>HCA · AWS</b><span>Healthcare data, 2024 to 2026</span></div>
+        <div><b>3 clouds</b><span>Azure, AWS, GCP, all in production roles</span></div>
+        <div><b>Santa Clara</b><span>Onsite, hybrid, remote, relocation open</span></div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="copyPitchBtn" type="button">Copy this pitch</button><span class="copy-ok" id="copyPitchOk" role="status"></span>
+        <button class="btn btn-outline" id="speedrunChatBtn" type="button">Match me to a role instead</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="sec-head"><h2>Featured build</h2><p>Tap a stage. This is the project I point everyone to first.</p></div>
+    <div class="card">
+      <h3 class="big">NYC Taxi Data Pipeline</h3>
+      <p class="sub">A production style incremental pipeline on official NYC TLC Yellow Taxi data, January to March 2024. It takes monthly files in, checks every row, quarantines the bad ones with a reason, and publishes hourly pickup metrics that analysts can trust. I wrote the whole thing up in a 12-section article, published it on dev.to, and ran a three-part LinkedIn series on it. The repo is release v0.1.0 and fully reproducible.</p>
+      <div class="pipe" role="group" aria-label="Pipeline stages, selectable">
+        <button class="stage" type="button" data-stage="bronze" aria-pressed="true"><b>Bronze</b><span>9.55M raw rows landed. Tap for detail.</span></button>
+        <div class="arrow" aria-hidden="true">→</div>
+        <button class="stage" type="button" data-stage="silver" aria-pressed="false"><b>Silver</b><span>9.55M accepted, 2,906 quarantined with reasons.</span></button>
+        <div class="arrow" aria-hidden="true">→</div>
+        <button class="stage" type="button" data-stage="gold" aria-pressed="false"><b>Gold</b><span>240,850 hourly pickup-zone rows. Over 5x faster.</span></button>
+      </div>
+      <div class="stage-detail" id="stageDetail" aria-live="polite"></div>
+      <div class="metrics">
+        <div class="metric"><b>27 tests</b><span>Automated tests, Ruff and Pytest, CI on GitHub Actions</span></div>
+        <div class="metric"><b>0.008 sec</b><span>Gold query time, vs 0.043 sec on raw, identical answers</span></div>
+        <div class="metric"><b>265 rows</b><span>Zone dimension covering every pickup zone in the data</span></div>
+        <div class="metric"><b>Docker</b><span>Multi-stage build, non-root, runs on ARM and AMD</span></div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-dark" href="https://github.com/praneeth-sholapur/nyc-taxi-data-pipeline" target="_blank" rel="noopener">View the repo</a>
+        <a class="btn btn-outline" href="https://dev.to/praneeth7/from-monthly-files-to-trusted-metrics-engineering-an-incremental-pipeline-for-95-million-nyc-taxi-22ni" target="_blank" rel="noopener">Read the full write-up</a>
+        <button class="btn btn-outline" id="projectChatBtn" type="button">Ask the assistant about it</button>
+      </div>
+      <div class="tagrow">
+        <span class="tag">Python CLI</span><span class="tag">SQL + DuckDB</span><span class="tag">Parquet</span><span class="tag">Manifest-driven partitions</span><span class="tag">SHA-256 fingerprints</span><span class="tag">DuckDB audit store</span><span class="tag">Data quality</span><span class="tag">CI on GitHub Actions</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="The numbers">
+    <div class="sec-head"><h2>Numbers I can prove</h2><p>Every one of these is in the repo or on my profile</p></div>
+    <div class="numgrid">
+      <div class="num"><b data-count="9550000" data-format="compact">9.55M</b><span>Bronze rows ingested, Jan to Mar 2024 TLC data</span></div>
+      <div class="num"><b data-count="2906">2,906</b><span>Rows quarantined, each with a documented reason, none silently dropped</span></div>
+      <div class="num"><b data-count="240850">240,850</b><span>Gold hourly pickup-zone rows covering all accepted trips</span></div>
+      <div class="num"><b data-count="27">27</b><span>Automated tests, plus linting, guarding every run</span></div>
+      <div class="num"><b>5x+</b><span>Faster queries on Gold vs raw, with identical answers</span></div>
+      <div class="num"><b data-count="5">5</b><span>Years each of Python, SQL, Spark, production pipelines, and data quality</span></div>
+      <div class="num"><b data-count="3">3</b><span>Clouds worked in production: Azure, AWS, GCP</span></div>
+      <div class="num"><b data-count="4">4</b><span>Years each of dbt, Kafka, and Pandas</span></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><h2>Experience, with the details</h2><p>Most recent first, no buzzword stuffing</p></div>
+    <div class="card">
+      <div class="job">
+        <div class="job-top"><h3>Azure Data Engineer</h3><span class="when">Feb 2026 to present</span></div>
+        <p class="co">PayPal · San Jose, CA</p>
+        <p>Data engineering on Azure at PayPal. Building pipelines and retrieval work, including RAG pipelines with Pinecone, so internal teams can search and use data they can rely on.</p>
+        <ul>
+          <li>Focus: Azure pipelines plus retrieval, the newest and fastest-growing part of my work.</li>
+          <li>Why it matters: payments data at scale, where a wrong number is not a typo, it is a trust problem.</li>
+          <li>Ask the assistant about: RAG, Pinecone, Azure Databricks.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-top"><h3>AWS Data Engineer</h3><span class="when">Feb 2024 to Jan 2026</span></div>
+        <p class="co">HCA Healthcare · Nashville, TN</p>
+        <p>Data engineering on AWS in healthcare, where governance and data quality are not optional. Two years working with sensitive data, HIPAA aware practices, and production pipelines.</p>
+        <ul>
+          <li>Two full years: the longest stretch of governed, sensitive-data work on my profile.</li>
+          <li>Habits built here: reconcile everything, document the logic, treat quality checks as the product, not paperwork.</li>
+          <li>Ask the assistant about: governance, data quality, healthcare data.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-top"><h3>GCP Data Engineer</h3><span class="when">Jun 2022 to Jun 2023</span></div>
+        <p class="co">Zensar · Bengaluru, India</p>
+        <p>Data engineering on Google Cloud. Building and supporting pipelines for client data workloads.</p>
+        <ul>
+          <li>The role that made me cloud-flexible: patterns first, vendor second.</li>
+          <li>Client delivery work, so deadlines and handover documentation were part of the job.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-top"><h3>Data Engineer</h3><span class="when">Jun 2021 to May 2022</span></div>
+        <p class="co">Titan Company · Bengaluru, India</p>
+        <p>Where I started in data engineering. Core pipeline work, SQL, and the habits I still use now: check the data, document the logic, test before you ship.</p>
+        <ul>
+          <li>Year one of five, and the foundation everything since is built on.</li>
+          <li>Started in Bengaluru, now based in Santa Clara. The SQL followed me.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="sec-head"><h2>The AI chapter</h2><p>Where my work is heading</p></div>
+    <div class="two">
+      <div class="card">
+        <h3>RAG at PayPal</h3>
+        <p style="margin:0;color:var(--muted);font-size:14.5px">My most recent work includes RAG pipelines with Pinecone: chunking, embedding, and retrieving data so internal teams can search it reliably. Retrieval is a data engineering problem wearing an AI hat. If the underlying data is messy, the answers are confidently wrong, and that is exactly the failure mode my quality habits are built to prevent.</p>
+      </div>
+      <div class="card">
+        <h3>This page, honestly</h3>
+        <p style="margin:0;color:var(--muted);font-size:14.5px">Yes, this site has an AI assistant, and yes, it is a bit much. That is the point. The assistant is a live Muse Wonder model, given my real profile, resume, and project numbers. It does not invent employers, dates, or metrics, it deflects private questions like salary to a direct conversation, and it tells you plainly that it is an assistant, not me live. Creative, but with guardrails. That is how I like my AI.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><h2>Skills explorer</h2><p>Tap any skill. Years are the ones I state on applications, never rounded up.</p></div>
+    <div class="card">
+      <div class="skill-grid">
+        <div>
+          <h3>Languages and processing</h3>
+          <div class="skill-list" id="skillsA"></div>
+        </div>
+        <div>
+          <h3>Cloud and platforms</h3>
+          <div class="skill-list" id="skillsB"></div>
+        </div>
+        <div>
+          <h3>Modelling and quality</h3>
+          <div class="skill-list" id="skillsC"></div>
+        </div>
+      </div>
+      <div class="skill-detail" id="skillDetail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section aria-label="How I work">
+    <div class="sec-head"><h2>How I work</h2><p>Six rules, learned the expensive way</p></div>
+    <div class="principles">
+      <div class="principle"><span class="n">RULE 01</span><h3>Quarantine, never quietly drop</h3><p>Bad rows get isolated with a documented reason. In the taxi build that was 2,906 rows, every one explained. Silent drops are how dashboards start lying.</p></div>
+      <div class="principle"><span class="n">RULE 02</span><h3>Reconcile the counts</h3><p>Rows in must equal rows accepted plus rows quarantined. 9.55M in, fully accounted for out. If the arithmetic does not close, the run does not ship.</p></div>
+      <div class="principle"><span class="n">RULE 03</span><h3>Measure, don't claim</h3><p>Gold layer faster? Prove it: 0.008 seconds vs 0.043 on raw, same question, identical answers. Benchmarks over adjectives, every time.</p></div>
+      <div class="principle"><span class="n">RULE 04</span><h3>Test before you ship</h3><p>27 automated tests and linting in CI guard the taxi pipeline. Tests are not a phase at the end. They are how you sleep after a deploy.</p></div>
+      <div class="principle"><span class="n">RULE 05</span><h3>Fingerprint everything</h3><p>Every source file gets a SHA-256 fingerprint and every run lands in an audit store, so any number can be traced back to the exact file it came from.</p></div>
+      <div class="principle"><span class="n">RULE 06</span><h3>Never claim unearned cloud</h3><p>Everything in my repo is built, tested, and reproducible by anyone. I would rather show one honest project than list ten tools I opened once.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="two">
+      <div class="card">
+        <h3>Certifications and education, in full</h3>
+        <ul>
+          <li><b>dbt Certified Developer</b>, with 4 years of dbt behind it.</li>
+          <li><b>Databricks Certified Data Engineer Associate</b>, with 2 years on Databricks and 5 years of Spark.</li>
+          <li><b>Master's in Business Analytics</b>, University of the Pacific. The analytics training is why I care about the question behind the pipeline, not just the pipeline.</li>
+          <li><b>Bachelor's degree</b>, plus a certification and training program.</li>
+          <li>Also on the profile: Databricks Genie, 2 years, and 4 years of management experience from earlier work.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>For recruiters, the fine print</h3>
+        <ul>
+          <li>Target roles: Data Engineer, mid to senior level. Also a fit for analytics engineering and Azure data roles.</li>
+          <li>Based in Santa Clara, California. Current role is in San Jose.</li>
+          <li>Open to onsite, hybrid, and remote. Open to relocation.</li>
+          <li>Strongest matches: Azure data platforms, governed or healthcare data, dbt modelling teams, Spark and Databricks shops, Kafka streaming work.</li>
+          <li>Salary and work authorization: I keep those for a direct conversation. The assistant will happily take your role details and draft your intro instead.</li>
+          <li>Fastest contact: LinkedIn, or email at sholapurpraneeth1@gmail.com.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Recommendations by visitor">
+    <section class="card"><div class="sec-head"><h2>A day in my work</h2><p>How I actually work, in my own words</p></div>
+<p>My day starts by checking overnight pipelines for failures, data quality issues or delays. Then a quick stand-up on work, blockers and priorities. Most of my time goes into writing Python and SQL, building and improving ETL pipelines in Azure Data Factory and Databricks, troubleshooting, optimising queries, and making data accurate and available for downstream teams. I work with engineers and business teams on requirements, review code, test changes, help with deployments, and end the day rechecking pipelines and updating tasks.</p>
+<p>I like to understand the problem first, check requirements and data sources before coding. Python and SQL are my go-to tools, PySpark and Databricks for larger datasets, Azure Data Factory and Airflow for orchestration. When something breaks, I check logs, reproduce it, check data at each stage, narrow it to the root cause, and fix the real issue, not a temporary patch. With messy data, I profile for nulls, duplicates, inconsistent formats and schema changes, clean and validate in Python or SQL, and add quality checks so it does not happen again. Simple, reusable code, tested, and blockers flagged early.</p>
+<p>Outside work, I follow new AI updates, play Call of Duty, and play chess.</p></section>
+<div class="sec-head"><h2>How the assistant recommends me</h2><p>Same logic the chat uses</p></div>
+    <div class="two">
+      <div class="reco"><b>Hiring for Azure or AI data work?</b>Start with PayPal. Azure pipelines and RAG work with Pinecone is my most recent experience, and it is the closest match.</div>
+      <div class="reco"><b>Hiring for governed or healthcare data?</b>Start with HCA Healthcare. Two years on AWS with sensitive data, strong data quality habits, and production pipelines.</div>
+      <div class="reco"><b>Need proof of engineering craft?</b>Start with the NYC taxi pipeline. 9.55M rows, 27 tests, an audit store, and a write-up that shows exactly how I think.</div>
+      <div class="reco"><b>Need analytics engineering?</b>Start with dbt. I am a dbt Certified Developer with 4 years of dbt, plus Databricks certification.</div>
+      <div class="reco"><b>Need streaming?</b>Start with Kafka, 4 years, paired with 5 years of Spark processing. I am upfront that most of my pipelines have been batch and incremental, and incremental done properly is the same discipline streaming needs.</div>
+      <div class="reco"><b>Just here to learn?</b>Start with the dev.to write-up. Twelve sections, code snippets, benchmark tables, and the honest choices, including what I deliberately did not claim.</div>
+    </div>
+  </section>
+
+  <section aria-label="Beyond the pipelines">
+    <div class="sec-head"><h2>Beyond the pipelines</h2><p>The minor details, since you asked</p></div>
+    <div class="two">
+      <div class="card">
+        <h3>Building in public</h3>
+        <ul>
+          <li>I turned the taxi pipeline into a three-part LinkedIn series and a full dev.to article, because a project nobody can read about is a project nobody can hire you for.</li>
+          <li>My LinkedIn is linkedin.com/in/praneeth-sholapur. The taxi repo and article sit in my Featured section there.</li>
+          <li>I write the way I talk: short, plain sentences, real numbers, no inflated claims. If this page sounds human, that is deliberate.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Rapid-fire Praneeth</h3>
+        <ul>
+          <li>Handle: praneeth_07. Home base: Santa Clara, California.</li>
+          <li>Career arc: Bengaluru to Nashville to the Bay Area, one cloud at a time.</li>
+          <li>Superpower: making 9.55 million messy rows reconcile to the last one.</li>
+          <li>Pet peeve: a dashboard number nobody can trace. See Rule 05.</li>
+          <li>Currently excited about: retrieval, RAG quality, and yes, AI assistants on portfolio sites.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Frequently asked questions">
+    <div class="sec-head"><h2>Questions everyone asks</h2><p>The assistant knows these too</p></div>
+    <details class="faq"><summary>Is he actually open to work?</summary><p>Yes. Open to Data Engineer roles at mid to senior level, based in Santa Clara, and open to onsite, hybrid, remote, and relocation.</p></details>
+    <details class="faq"><summary>Which cloud is he strongest on?</summary><p>Azure is current, at PayPal. AWS is the longest single stretch, two years at HCA. GCP came before that at Zensar. Five years of Spark and SQL run underneath all three, which is why he moves between clouds without starting over.</p></details>
+    <details class="faq"><summary>Can I see real code, not just claims?</summary><p>Yes, the NYC taxi pipeline repo is public on GitHub, with 27 tests, CI, Docker, and a full dev.to write-up. Links are at the top of this page and in the Featured build section.</p></details>
+    <details class="faq"><summary>Is the assistant really Praneeth?</summary><p>No, and it will tell you that itself. It is an AI assistant answering from his real profile, resume, and project data. For anything that matters, it points you to Praneeth directly on LinkedIn or email.</p></details>
+    <details class="faq"><summary>What will the assistant not answer?</summary><p>Salary expectations and work authorization details. Those belong in a direct recruiter conversation, not on a public page. It will deflect politely and offer to draft your intro note instead.</p></details>
+    <details class="faq"><summary>What is his best single proof of work?</summary><p>The taxi pipeline: 9.55M rows in, 2,906 quarantined with reasons, 240,850 Gold rows, identical answers over 5x faster, every run audited. It is the fastest way to see how he thinks.</p></details>
+  </section>
+
+  <footer>
+    <p>Praneeth Sholapur · Data Engineer · Santa Clara, CA<br>
+    <a href="https://www.linkedin.com/in/praneeth-sholapur" target="_blank" rel="noopener">linkedin.com/in/praneeth-sholapur</a> ·
+    <a href="mailto:sholapurpraneeth1@gmail.com">sholapurpraneeth1@gmail.com</a> ·
+    <a href="https://github.com/praneeth-sholapur/nyc-taxi-data-pipeline" target="_blank" rel="noopener">GitHub</a></p>
+    <p class="foot-note">The assistant on this page is an AI helper that answers from this profile. It is creative, it is occasionally funny, and it does not invent facts. For anything important, reach Praneeth directly on LinkedIn.</p>
+  </footer>
+</div>
+
+<!-- Chat widget -->
+<button class="chat-launch" id="chatLaunch" type="button" aria-haspopup="dialog">
+  <span class="pulse"></span> Chat with Praneeth's assistant
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Praneeth's AI assistant">
+  <div class="chat-head">
+    <div class="avatar" aria-hidden="true">P</div>
+    <div><b>Praneeth's AI Assistant</b><span>Knows his work. Occasionally funny. Never invents.</span></div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="quick" id="quickRow"></div>
+  <form class="chat-form" id="chatForm">
+    <input id="chatInput" type="text" placeholder="Ask anything: roles, skills, jokes, proof..." autocomplete="off" aria-label="Type your question" />
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  /* ---------- Page interactivity ---------- */
+  var words = ['pipelines people can trust_','RAG retrieval on Pinecone_','dbt models that reconcile_','Spark jobs at 9.55M-row scale_','quarantines, not silent drops_','benchmarks, not adjectives_'];
+  var wi = 0, rot = document.getElementById('rotator');
+  if(rot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    setInterval(function(){ wi = (wi+1)%words.length; rot.textContent = words[wi]; }, 2600);
+  }
+  var tickerItems = 'Python <b>5 yrs</b> · SQL <b>5 yrs</b> · Spark <b>5 yrs</b> · Kafka <b>4 yrs</b> · dbt <b>4 yrs</b> · Pandas <b>4 yrs</b> · Databricks <b>2 yrs</b> · AWS <b>2 yrs</b> · Azure <b>current</b> · GCP <b>done it</b> · 9.55M rows <b>reconciled</b> · 2,906 rows <b>quarantined with reasons</b> · ';
+  var tt = document.getElementById('tickerTrack');
+  if(tt){ tt.innerHTML = '<span>'+tickerItems+'</span><span>'+tickerItems+'</span>'; }
+
+  var STAGES = {
+    bronze: {t:'Bronze: land it exactly as it arrived', d:'9.55M raw rows from official NYC TLC Yellow Taxi files, January to March 2024, landed as Parquet in manifest-driven Hive-style partitions. Every file is fingerprinted with SHA-256 before anything touches it, so later, any number can be traced back to the exact source file. No edits, no opinions, just evidence.'},
+    silver: {t:'Silver: check every row, explain every rejection', d:'9.55M rows accepted after validation. 2,906 rows did not pass, and none of them vanished: each was quarantined with a documented reason. Accepted plus quarantined reconciles exactly with Bronze. That reconciliation is the difference between a pipeline and a pile of scripts.'},
+    gold: {t:'Gold: pre-built answers, measured speed', d:'240,850 hourly pickup-zone rows plus a 265-row zone dimension, covering all accepted trips. Same question on raw data: 0.043 seconds. On Gold: 0.008 seconds, over 5x faster, and the answers are identical. He measured it instead of claiming it, which, frankly, should be the industry default.'}
+  };
+  var stageDetail = document.getElementById('stageDetail');
+  function showStage(k){
+    document.querySelectorAll('.stage').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-stage')===k ? 'true':'false'); });
+    stageDetail.innerHTML = '<b>'+STAGES[k].t+'</b><p>'+STAGES[k].d+'</p>';
+  }
+  document.querySelectorAll('.stage').forEach(function(b){ b.addEventListener('click', function(){ showStage(b.getAttribute('data-stage')); }); });
+  showStage('bronze');
+
+  var SKILLS = [
+    {el:'skillsA', name:'Python', yrs:'5 yrs', d:'Five years of Python, including the CLI that drives the taxi pipeline end to end. His default language for ingestion, validation, and automation.'},
+    {el:'skillsA', name:'SQL', yrs:'5 yrs', d:'Five years of SQL, the transform layer of the taxi build (with DuckDB) and the daily language at every role since Titan in 2021.'},
+    {el:'skillsA', name:'PySpark / Spark', yrs:'5 yrs', d:'Five years of Spark and PySpark for distributed processing. This is the engine room of his stack and the skill he leads with alongside Python and SQL.'},
+    {el:'skillsA', name:'Pandas', yrs:'4 yrs', d:'Four years of Pandas for analysis and smaller-scale wrangling, when Spark would be a crane to hang a picture frame.'},
+    {el:'skillsA', name:'Kafka', yrs:'4 yrs', d:'Four years of Kafka for streaming ingestion, paired with Spark processing. He is honest that most production pipelines so far have been batch and incremental.'},
+    {el:'skillsA', name:'Apache Airflow', yrs:'', d:'Orchestration on his skill list, used to schedule and monitor pipeline runs so failures surface loudly instead of silently.'},
+    {el:'skillsB', name:'Microsoft Azure', yrs:'current', d:'His current cloud, at PayPal since Feb 2026. Azure pipelines plus RAG retrieval work with Pinecone.'},
+    {el:'skillsB', name:'AWS', yrs:'2 yrs', d:'Two years at HCA Healthcare, 2024 to 2026, running data engineering on AWS with healthcare-grade governance.'},
+    {el:'skillsB', name:'GCP', yrs:'', d:'A year at Zensar in Bengaluru on Google Cloud client workloads. The role that made him pattern-first, vendor-second.'},
+    {el:'skillsB', name:'Databricks', yrs:'2 yrs', d:'Two years on Databricks, backed by the Databricks Certified Data Engineer Associate certification. Includes Databricks Genie, also 2 years.'},
+    {el:'skillsB', name:'Azure Databricks', yrs:'', d:'Databricks in its Azure form, part of his Azure skill set at PayPal.'},
+    {el:'skillsB', name:'Snowflake', yrs:'', d:'On his warehouse skill list alongside Oracle experience from application work. Part of the broader platform toolkit.'},
+    {el:'skillsB', name:'Lakehouse platforms', yrs:'2-3 yrs', d:'Two to three years of lakehouse platform work, the architectural pattern behind the Bronze, Silver, Gold design in his own build.'},
+    {el:'skillsC', name:'dbt', yrs:'4 yrs', d:'Four years of dbt and the dbt Certified Developer credential. His modelling layer of choice: tested, documented, reviewable SQL.'},
+    {el:'skillsC', name:'Data modelling', yrs:'', d:'Dimensional thinking shows up in the taxi build: 240,850 Gold fact rows served by a clean 265-row zone dimension.'},
+    {el:'skillsC', name:'Data quality', yrs:'5 yrs', d:'Five years of data quality work and his signature discipline: validation, quarantine with reasons, and count reconciliation on every run.'},
+    {el:'skillsC', name:'Production pipelines', yrs:'5 yrs', d:'Five years of running pipelines other people depend on, across payments, healthcare, and client platforms.'},
+    {el:'skillsC', name:'Databases', yrs:'5 yrs', d:'Five years across database systems, from operational stores to DuckDB in his own audit-backed pipeline.'},
+    {el:'skillsC', name:'Change Data Capture', yrs:'', d:'CDC is on his skill list, the incremental pattern his taxi pipeline design follows: process what changed, fingerprint what arrived.'},
+    {el:'skillsC', name:'ETL / ELT', yrs:'', d:'Both orders, chosen by the problem. His own build lands first and transforms after, which is the honest shape of most modern stacks.'},
+    {el:'skillsC', name:'Git', yrs:'', d:'Version control throughout, with CI on GitHub Actions running Ruff and Pytest on the taxi repo.'},
+    {el:'skillsC', name:'Terraform', yrs:'under 1 yr', d:'Under a year, stated honestly and never rounded up. Infrastructure as code is the newest tool in the box and he labels it that way.'}
+  ];
+  var skillDetail = document.getElementById('skillDetail');
+  function showSkill(s, btn){
+    document.querySelectorAll('.skill').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    if(btn) btn.setAttribute('aria-pressed','true');
+    skillDetail.innerHTML = '<b>'+s.name+(s.yrs ? ' · '+s.yrs : '')+'</b><p>'+s.d+'</p>';
+  }
+  SKILLS.forEach(function(s){
+    var host = document.getElementById(s.el); if(!host) return;
+    var b = document.createElement('button');
+    b.type='button'; b.className='skill'; b.setAttribute('aria-pressed','false');
+    b.innerHTML = s.name + (s.yrs ? ' <small>· '+s.yrs+'</small>' : '');
+    b.addEventListener('click', function(){ showSkill(s, b); });
+    host.appendChild(b);
+  });
+  showSkill(SKILLS[0], document.querySelector('#skillsA .skill'));
+
+  var pitch = 'Praneeth Sholapur is a Data Engineer with 5 years across Azure, AWS, and GCP. Currently Azure Data Engineer at PayPal (San Jose) building pipelines and RAG retrieval with Pinecone. Previously AWS Data Engineer at HCA Healthcare (2024-2026) on governed healthcare data, GCP Data Engineer at Zensar, and Data Engineer at Titan. Python, SQL, and Spark for 5 years; dbt and Kafka for 4. dbt Certified Developer and Databricks Certified Data Engineer Associate. Master\'s in Business Analytics, University of the Pacific. Based in Santa Clara, open to onsite, hybrid, remote, and relocation. Proof of work: a 9.55M-row NYC taxi pipeline, public on GitHub with 27 tests. LinkedIn: https://www.linkedin.com/in/praneeth-sholapur';
+  document.getElementById('copyPitchBtn').addEventListener('click', function(){
+    if(navigator.clipboard) navigator.clipboard.writeText(pitch);
+    document.getElementById('copyPitchOk').textContent = 'Copied. Go hire him.';
+    setTimeout(function(){ document.getElementById('copyPitchOk').textContent=''; }, 3000);
+  });
+
+  /* Animated counters */
+  var nums = document.querySelectorAll('[data-count]');
+  if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el = e.target, target = parseInt(el.getAttribute('data-count'),10), t0 = null;
+        function step(ts){
+          if(!t0) t0 = ts;
+          var p = Math.min((ts-t0)/1100, 1), v = Math.round(target * p);
+          el.textContent = el.getAttribute('data-format')==='compact' && v>=1000000 ? (v/1000000).toFixed(2)+'M' : v.toLocaleString('en-US');
+          if(p<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        io.unobserve(el);
+      });
+    }, {threshold:.4});
+    nums.forEach(function(n){ io.observe(n); });
+  }
+
+  /* ---------- Chat ---------- */
+  var panel = document.getElementById('chatPanel');
+  var launch = document.getElementById('chatLaunch');
+  var body = document.getElementById('chatBody');
+  var quick = document.getElementById('quickRow');
+  var form = document.getElementById('chatForm');
+  var input = document.getElementById('chatInput');
+  var started = false, startWithJoke = false;
+
+  var LINKS = {
+    linkedin: 'https://www.linkedin.com/in/praneeth-sholapur',
+    github: 'https://github.com/praneeth-sholapur/nyc-taxi-data-pipeline',
+    devto: 'https://dev.to/praneeth7/from-monthly-files-to-trusted-metrics-engineering-an-incremental-pipeline-for-95-million-nyc-taxi-22ni',
+    email: 'mailto:sholapurpraneeth1@gmail.com'
+  };
+
+  function openChat(){
+    panel.classList.add('open');
+    launch.style.display = 'none';
+    if(!started){ started = true; greet(); }
+    setTimeout(function(){ input.focus(); }, 250);
+  }
+  function closeChat(){ panel.classList.remove('open'); launch.style.display = 'inline-flex'; }
+  launch.addEventListener('click', openChat);
+  document.getElementById('chatClose').addEventListener('click', closeChat);
+  document.getElementById('heroChatBtn').addEventListener('click', openChat);
+  document.getElementById('calloutChatBtn').addEventListener('click', openChat);
+  document.getElementById('speedrunChatBtn').addEventListener('click', function(){ openChat(); setTimeout(function(){ if(started) handleUser('I am a recruiter','type-recruiter'); }, 700); });
+  document.getElementById('projectChatBtn').addEventListener('click', function(){ openChat(); setTimeout(function(){ handleUser('NYC taxi project','q-project'); }, 700); });
+  document.getElementById('calloutJokeBtn').addEventListener('click', function(){ startWithJoke = true; openChat(); });
+
+  function scrollDown(){ body.scrollTop = body.scrollHeight; }
+  function addMsg(text, who){
+    var d = document.createElement('div');
+    d.className = 'msg ' + (who || 'bot');
+    d.innerHTML = text;
+    body.appendChild(d); scrollDown(); return d;
+  }
+  function botSay(text, chips){
+    var t = document.createElement('div');
+    t.className = 'typing'; t.textContent = 'thinking in SQL...';
+    body.appendChild(t); scrollDown();
+    setTimeout(function(){ t.remove(); addMsg(text, 'bot'); setQuick(chips || []); }, 430);
+  }
+  function setQuick(chips){
+    quick.innerHTML = '';
+    chips.forEach(function(c){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = c.label;
+      b.addEventListener('click', function(){ handleUser(c.label, c.action); });
+      quick.appendChild(b);
+    });
+  }
+
+  var HOME_CHIPS = [
+    {label:'I am a recruiter', action:'type-recruiter'},
+    {label:'Hiring manager', action:'type-recruiter'},
+    {label:'I am an engineer', action:'type-engineer'},
+    {label:'Just browsing', action:'type-browsing'},
+    {label:'Tell me a joke', action:'q-joke'},
+    {label:'Surprise me', action:'q-funfact'}
+  ];
+  var ASK_CHIPS = [
+    {label:'His experience', action:'q-experience'},
+    {label:'NYC taxi project', action:'q-project'},
+    {label:'His skills', action:'q-skills'},
+    {label:'Why hire him?', action:'q-why'},
+    {label:'Fun fact', action:'q-funfact'},
+    {label:'How to contact him', action:'q-contact'}
+  ];
+
+  var JOKES = [
+    'Why did the data engineer break up with the spreadsheet? Too many rows, not enough commitment. Also, it kept changing its type without telling anyone. He has standards now: schemas, tests, reconciliation.',
+    'His favourite horror story: a dashboard that said revenue was up 400%. The pipeline had duplicated every row four times. Nobody quarantined anything. He still checks counts twice because of tales like that. 9.55M in, 9.55M accounted for. Always.',
+    'Why do data engineers love Bronze, Silver, Gold? Because it is the only medal system where coming first (raw and untouched) is exactly what you want. Land it as it arrived. Fingerprint it. Then earn the Gold.'
+  ];
+  var jokeIdx = 0;
+  var FACTS = [
+    'Fun fact: his flagship pipeline quarantined exactly 2,906 rows out of 9.55 million, and every single one has a documented reason. Most people delete their mistakes. He files his, alphabetically, with evidence.',
+    'Fun fact: the Gold layer answers the same question over 5x faster than raw (0.008s vs 0.043s) with identical results. Pre-computation: the original cheat code, except it is just good engineering.',
+    'Fun fact: he has worked on three clouds in three countries\' time zones: GCP in Bengaluru, AWS in Nashville, Azure in San Jose. The SQL syntax barely changed. The coffee improved gradually.',
+    'Fun fact: his Master\'s is in Business Analytics, not pure CS. It shows: he keeps asking what decision a pipeline supports, which is an annoying question until the dashboard saves a meeting.',
+    'Fun fact: the taxi write-up started as a three-part LinkedIn series before becoming a 12-section dev.to article. He builds in public because a project nobody can read about is a project nobody can hire you for.'
+  ];
+  var factIdx = 0;
+
+  function greet(){
+    if(startWithJoke){
+      botSay('You came in through the joke door. Respect.\n\n' + JOKES[0] + '\n\nI am Praneeth\'s AI assistant, by the way. Not him live, but trained on his real profile, resume, and project numbers, and I answer the way he would: plainly, with the receipts. Who are you visiting as?', HOME_CHIPS);
+      jokeIdx = 1; return;
+    }
+    botSay('Hi, I am Praneeth\'s AI assistant. Quick honesty up front: I am not Praneeth live in chat. I am the next best thing, a walking, talking version of his profile, resume, and project data, with his sense of humour set to "recruiter-safe."\n\nI know every role, every skill year, and every pipeline number on this page, including the minor details most people skip. So, who are you visiting as?', HOME_CHIPS);
+  }
+
+  function recruiterFlow(){
+    botSay('Excellent, let us skip the generic pitch. Generic pitches are how good candidates get ignored.\n\nTell me the shape of the role and I will match him honestly, including where the fit is strong and where it is a stretch. What are you hiring for?', [
+      {label:'Azure / AI data role', action:'role-azure'},
+      {label:'Healthcare / governed data', action:'role-health'},
+      {label:'Analytics engineering / dbt', action:'role-dbt'},
+      {label:'General Data Engineer', action:'role-general'},
+      {label:'Streaming / Kafka', action:'role-streaming'},
+      {label:'Databricks / Spark role', action:'role-spark'}
+    ]);
+  }
+
+  function roleAnswer(kind){
+    var map = {
+      'role-azure': 'Strongest possible match, start with PayPal, his current role since Feb 2026.\n\nAzure data engineering there, including RAG pipelines with Pinecone, so teams can search and retrieve data reliably. Underneath it: 5 years of Spark and SQL, so the Azure work sits on real depth, not a tutorial.<span class="rec-card"><b>My recommendation:</b> Azure or AI data role? Lead with PayPal, then use the taxi pipeline as the craft check. Ready when you are: Leave my details, below, and I will draft your intro note.</span>',
+      'role-health': 'Start with HCA Healthcare, Feb 2024 to Jan 2026.\n\nTwo years as an AWS Data Engineer on sensitive healthcare data, HIPAA aware practices, governance and quality checks as daily work, not audit-season theatre. Add 5 years of data quality overall and you get the rarest combo in data hiring: someone who treats governed data as the default, not the exception.',
+      'role-dbt': 'The headline facts, no padding.\n\ndbt Certified Developer, 4 years of dbt. Databricks Certified Data Engineer Associate, 2 years on Databricks. His Gold layer work shows the modelling mindset: pre-built, tested, documented models where analysts get identical answers, faster. If your team lives in dbt, this is a direct, verifiable match.',
+      'role-general': 'The short version he would give you himself.\n\n5 years, 4 roles, 3 clouds. Python and SQL for 5 years, Spark and PySpark for 5, Kafka and dbt for 4. PayPal on Azure now, HCA on AWS before that, GCP at Zensar, Titan before that. Certified in dbt and Databricks. Master\'s in Business Analytics.\n\nBased in Santa Clara. Onsite, hybrid, remote, and relocation all open. Target: mid to senior Data Engineer.',
+      'role-streaming': 'Straight answer, because he insists on them.\n\nKafka is genuinely his: 4 years, alongside 5 years of Spark processing. But most of his production pipelines have been batch and incremental, and he will not pretend otherwise. The good news: his incremental design, manifests, SHA-256 fingerprints, audit store, is exactly the discipline streaming systems punish you for skipping.',
+      'role-spark': 'This is home turf.\n\n5 years of Spark and PySpark, 2 years on Databricks, and the Databricks Certified Data Engineer Associate credential to back it. His own build runs SQL and DuckDB transforms over 9.55M rows with 27 tests in CI, so the Spark depth comes with engineering hygiene attached, not instead of it.'
+    };
+    botSay(map[kind] + '\n\nWant the next step?', [
+      {label:'How do I reach him?', action:'q-contact'},
+      {label:'Leave my details', action:'lead-form'},
+      {label:'Why hire him?', action:'q-why'},
+      {label:'See the taxi project', action:'q-project'},
+      {label:'Ask something else', action:'ask-more'}
+    ]);
+  }
+
+  function engineerFlow(){
+    botSay('Engineer mode. Pitch deleted, receipts out.\n\nThe artefact worth your time is the NYC taxi pipeline: 9.55M rows, Bronze to Silver to Gold, 2,906 quarantines with reasons, count reconciliation, SHA-256 fingerprints, a DuckDB audit store, 27 tests, multi-stage Docker running as non-root. Pick your rabbit hole.', [
+      {label:'Pipeline architecture', action:'eng-arch'},
+      {label:'Data quality approach', action:'eng-quality'},
+      {label:'Gold layer speed test', action:'eng-speed'},
+      {label:'Testing and CI', action:'eng-tests'},
+      {label:'Read the write up', action:'eng-read'}
+    ]);
+  }
+
+  function browsingFlow(){
+    botSay('Welcome, curious human. The tour, in his own order of pride.\n\n1. The NYC taxi pipeline, his proof of craft. 2. PayPal, the current Azure and RAG chapter. 3. Five years across three clouds with two certifications. 4. The minor details: Bengaluru to Nashville to Santa Clara, one cloud at a time.\n\nPick a stop, or hit Surprise me and I will pick for you.', ASK_CHIPS.concat([{label:'Surprise me', action:'q-funfact'}]));
+  }
+
+  var QA = [
+    {keys:['joke','funny','make me laugh','humor','humour'], act:'joke'},
+    {keys:['fun fact','surprise','interesting','random fact'], act:'funfact'},
+    {keys:['why hire','why him','why praneeth','stand out','different','superpower','best quality','strength'], text:'Why hire him? Three honest reasons.\n\n1. Breadth with receipts: 3 clouds in production roles, not certifications-only knowledge.\n2. Quality discipline: quarantine with reasons, reconcile counts, fingerprint files, audit every run. Most engineers build pipelines. He builds pipelines that can defend their own numbers.\n3. He shows his work: a public 9.55M-row build with 27 tests and a full write-up. You do not have to take his word for anything. You can read the code.\n\nHis superpower, if you want it in one line: making messy data reconcile to the last row.'},
+    {keys:['paypal','current role','current job','now','present'], text:'He is an Azure Data Engineer at PayPal in San Jose, since Feb 2026. Azure pipelines, plus RAG pipelines with Pinecone so internal teams can search and retrieve data reliably. It is his newest work and the thing he talks about most right now.'},
+    {keys:['hca','healthcare','health','hospital','hipaa'], text:'At HCA Healthcare (Feb 2024 to Jan 2026) he was an AWS Data Engineer in Nashville. Two years on sensitive healthcare data: HIPAA aware handling, governance, and quality checks as daily practice. If your data is regulated, this is the most relevant chapter of his career.'},
+    {keys:['zensar','gcp','google'], text:'At Zensar in Bengaluru (Jun 2022 to Jun 2023) he worked as a GCP Data Engineer on client data workloads. Client delivery, deadlines, handovers. It is why he is comfortable across clouds instead of loyal to one logo.'},
+    {keys:['titan','first job','started'], text:'Titan Company in Bengaluru (Jun 2021 to May 2022) was his first data engineering role. Core pipelines and SQL, and where the habits started: check the data, document the logic, test before you ship. Five years later, same rules, bigger data.'},
+    {keys:['experience','background','career','work history','journey','timeline'], text:'Five years, four roles, three clouds, two hemispheres of coffee.\n\nPayPal, Azure Data Engineer, San Jose, Feb 2026 to present.\nHCA Healthcare, AWS Data Engineer, Nashville, 2024 to 2026.\nZensar, GCP Data Engineer, Bengaluru, 2022 to 2023.\nTitan Company, Data Engineer, Bengaluru, 2021 to 2022.\n\nEvery step added a cloud or a discipline. None of it is padding.'},
+    {keys:['taxi','project','portfolio','nyc','flagship','build'], text:'The NYC taxi pipeline is his flagship build, on official NYC TLC data, Jan to Mar 2024.\n\n9.55M Bronze rows, 9.55M accepted into Silver, 2,906 quarantined with documented reasons, 240,850 Gold hourly pickup rows and a 265-row zone dimension. Python CLI, SQL and DuckDB, Parquet partitions, SHA-256 fingerprints, DuckDB audit store, 27 tests, CI, Docker. Release v0.1.0.\n\nRepo: ' + 'https://github.com/praneeth-sholapur/nyc-taxi-data-pipeline' + '\nWrite up: ' + 'https://dev.to/praneeth7/from-monthly-files-to-trusted-metrics-engineering-an-incremental-pipeline-for-95-million-nyc-taxi-22ni'},
+    {keys:['bronze','silver layer','medallion','architecture','how does it work','how it works'], text:'Architecture, the short version.\n\nBronze: raw files landed as Parquet in manifest-driven Hive-style partitions, every file SHA-256 fingerprinted, untouched. Silver: SQL and DuckDB transforms, validation, bad rows quarantined with reasons instead of dropped. Gold: pre-built hourly aggregates by pickup zone.\n\nEvery run is logged in a DuckDB audit store, so any published number traces back to its source file. Boring? Yes. That is why it works.'},
+    {keys:['quarantine','data quality','quality','validation','bad data','bad rows'], text:'Data quality is his signature, so here is the full doctrine.\n\nBad rows are never dropped quietly. In the taxi build, 2,906 rows were quarantined, each with a documented reason. Accepted plus quarantined must reconcile exactly with raw: 9.55M in, fully accounted for out. 27 automated tests guard the rules.\n\nHis line on it: silent drops are how dashboards start lying.'},
+    {keys:['speed','fast','performance','benchmark','gold layer'], text:'He measured it instead of claiming it, so I get to quote real numbers.\n\nSame question, two datasets. Raw: 9.5M rows, 0.043 seconds. Gold summary: 240,850 rows, 0.008 seconds. Over 5x faster, identical answers. That one test is the entire argument for a Gold layer.'},
+    {keys:['test','ci','docker','github actions','pytest'], text:'The engineering hygiene, since you asked like an engineer.\n\n27 automated tests with Pytest, linting with Ruff, CI on GitHub Actions, multi-stage Docker build that runs as non-root and works on ARM and AMD. Every run logged in an audit store. It is a portfolio project with production manners.'},
+    {keys:['skill','stack','technologies','tech','tools','what does he know'], text:'His core stack, with the years he states himself, never rounded up:\n\nPython 5 yrs, SQL 5 yrs, Spark and PySpark 5 yrs, production pipelines 5 yrs, data quality 5 yrs, databases 5 yrs. Pandas 4 yrs, dbt 4 yrs, Kafka 4 yrs. Databricks 2 yrs, AWS 2 yrs, lakehouse platforms 2 to 3 yrs. Terraform under 1 yr, and he labels it that way himself.\n\nClouds: Azure (current), AWS, GCP. Plus Airflow, Snowflake, CDC, ETL and ELT, Git. Tap any skill in the Skills explorer on this page and it will tell you the story behind it.'},
+    {keys:['python'], text:'Python: 5 years. It is his default language and the driver of the taxi pipeline, which ships as a Python CLI. If it ingests, validates, or automates, he probably wrote it in Python.'},
+    {keys:['sql'], text:'SQL: 5 years, daily since 2021. In his own build, SQL with DuckDB does the transform heavy lifting from Bronze to Gold. He thinks in joins the way other people think in sentences.'},
+    {keys:['azure','microsoft'], text:'Azure is his current cloud, at PayPal. Azure pipelines, Azure Databricks in the skill set, and RAG retrieval work on top. His Databricks certification backs the platform side.'},
+    {keys:['aws','amazon'], text:'AWS was the HCA cloud for two years, 2024 to 2026. Healthcare data engineering with the governance that comes with it. Two years is also his longest single-cloud stretch, which makes AWS his depth cloud and Azure his current cloud.'},
+    {keys:['cloud','which cloud','best cloud'], text:'He has run production data work on all three majors, which is rarer than it sounds.\n\nAzure: PayPal, current. AWS: HCA Healthcare, two years. GCP: Zensar, one year. Underneath all of them, the same 5 years of Python, SQL, and Spark, which is exactly why he can move between clouds without starting over.'},
+    {keys:['dbt'], text:'dbt Certified Developer, 4 years of dbt. If your team models in dbt, that is a direct match, and his Gold layer design shows the mindset: tested, documented, reviewable models that give identical answers, faster.'},
+    {keys:['databricks','spark','pyspark'], text:'Databricks Certified Data Engineer Associate, 2 years on Databricks (Genie included), and 5 years of Spark and PySpark overall. Spark is the engine room of his stack.'},
+    {keys:['kafka','streaming','real time','realtime'], text:'Kafka: 4 years, used alongside Spark processing. The honest footnote he insists on: most of his pipeline work has been batch and incremental rather than pure streaming. His incremental discipline, manifests, fingerprints, audits, is the same discipline streaming demands.'},
+    {keys:['airflow','orchestrat'], text:'Airflow is on his orchestration skill list, for scheduling and monitoring pipeline runs so failures are loud. A pipeline nobody monitors is just a rumour with a cron job.'},
+    {keys:['snowflake','warehouse'], text:'Snowflake is on his warehouse skill list, part of the platform toolkit alongside the three clouds and Databricks. For depth stories, ask about Azure, AWS, or the DuckDB work in his own build, that is where the receipts are longest.'},
+    {keys:['rag','pinecone','ai','llm','vector','genie','genai','machine learning'], text:'The AI chapter, and his favourite topic right now.\n\nAt PayPal, his recent work includes RAG pipelines with Pinecone: retrieval so teams can search data reliably. His take, and I agree with him: retrieval is data engineering wearing an AI hat. If the underlying data is messy, the model answers confidently and wrongly. His whole quality discipline exists to prevent exactly that.\n\nHe also lists Databricks Genie, 2 years, on the AI-adjacent side.'},
+    {keys:['certif','cert'], text:'Two certifications, both verifiable on his LinkedIn: dbt Certified Developer, and Databricks Certified Data Engineer Associate. No expired certs, no logo soup.'},
+    {keys:['education','degree','study','university','masters','master','pacific'], text:'Master\'s in Business Analytics from the University of the Pacific, plus a Bachelor\'s degree and a certification and training program. The Business Analytics master\'s explains a lot: he keeps asking what decision a pipeline supports, not just whether it runs.'},
+    {keys:['location','where','based','santa clara','relocat','remote','hybrid','onsite','on site','san jose'], text:'Based in Santa Clara, California, current role in San Jose. Open to onsite, hybrid, and remote Data Engineer roles, and open to relocation. Bengaluru to Nashville to the Bay Area: he has moved for the work before and will again for the right role.'},
+    {keys:['contact','reach','email','hire','hiring','get in touch','linkedin','talk to him'], text:'Fastest way to reach him is LinkedIn: https://www.linkedin.com/in/praneeth-sholapur\n\nEmail works too: sholapurpraneeth1@gmail.com.\n\nRecruiter? Use Leave my details and I will draft a clean intro note with your role in it. You send it, nothing gets stored on this page.'},
+    {keys:['salary','pay','compensation','rate','money'], text:'Nice try, and I say that with affection. He does not publish salary expectations on a public page, and I will not guess them, because guessed numbers help nobody.\n\nBring the role and the range to him on LinkedIn and he will talk numbers directly, like an adult, in a real conversation.'},
+    {keys:['visa','sponsor','authoriz','citizen','work permit'], text:'That one belongs in a direct recruiter conversation, not a public page, so I am deliberately not answering it here. He will answer it himself, promptly, on LinkedIn: https://www.linkedin.com/in/praneeth-sholapur'},
+    {keys:['available','availability','open to work','looking','job search'], text:'Yes, he is open to Data Engineer roles, mid to senior level. Santa Clara based, onsite, hybrid, remote, and relocation all on the table. If you are hiring, the Leave my details option is the fastest route from this page to his inbox.'},
+    {keys:['resume','cv'], text:'His full, current background lives on LinkedIn: https://www.linkedin.com/in/praneeth-sholapur\n\nThe 30-second version: 5 years, PayPal on Azure now, HCA on AWS before that, GCP at Zensar, Titan before that, and a 9.55M-row pipeline you can inspect on GitHub. There is also a Copy this pitch button in the speedrun section of this page, built for exactly this moment.'},
+    {keys:['article','dev.to','devto','write','blog','writing','linkedin post','posts'], text:'He builds in public. The taxi pipeline became a three-part LinkedIn series and a 12-section dev.to article with code snippets and benchmark tables.\n\nRead it here: https://dev.to/praneeth7/from-monthly-files-to-trusted-metrics-engineering-an-incremental-pipeline-for-95-million-nyc-taxi-22ni\n\nHis writing rule, which this page follows: short plain sentences, real numbers, no inflated claims.'},
+    {keys:['personality','hobbies','fun','outside work','personal','who is he','about him','himself'], text:'The minor details, since you asked nicely.\n\nHandle: praneeth_07. Home base: Santa Clara. Career arc: Bengaluru to Nashville to the Bay Area, one cloud at a time. Pet peeve: a dashboard number nobody can trace back to a source file. Currently excited about: retrieval quality, RAG, and AI assistants that know when to say "I don\'t know."\n\nSuperpower: making 9.55 million messy rows reconcile to the last one.'},
+    {keys:['interview','meet','call','schedule','next step'], text:'Next step is simple: reach him on LinkedIn (https://www.linkedin.com/in/praneeth-sholapur) or by email at sholapurpraneeth1@gmail.com, and he will take the conversation from there personally.\n\nWant help making the first move? Use Leave my details and I will draft the intro note for you, role included.'},
+    {keys:['real ai','are you ai','are you real','bot','live model','how do you work'], text:'Honest answer, because he programmed me to give those.\n\nI am a live Muse Wonder AI assistant, running through a backend that knows his real profile, resume, and project data. I am not Praneeth typing fast, and I am not Praneeth live. When a question falls outside what I know, I say so instead of inventing an answer in his voice. Creative, yes. Fabricated, never.'},
+    {keys:['thank','thanks','great','awesome','cool'], text:'Anytime. That is literally what I am here for, well, that and making sure his 2,906 quarantined rows get the respect they deserve.\n\nAnything else? Experience, a skill deep-dive, the speedrun pitch, or Leave my details if you are hiring.'},
+    {keys:['bye','goodbye','see you'], text:'Goodbye, and thanks for stopping by. If a Data Engineer shaped thought crosses your mind later, you know where he lives: LinkedIn, linkedin.com/in/praneeth-sholapur. He answers those himself.'},
+    {keys:['hello','hi','hey','yo'], text:'Hi there. Good timing, I was just reconciling 9.55 million rows for fun. (They reconciled. They always reconcile.)\n\nAsk me about his experience, the taxi pipeline, any skill, or say the word recruiter and I will switch into matchmaking mode.'},
+    {keys:['help','what can you','options','menu'], text:'Here is my whole repertoire.\n\nRecruiters: tell me your role type and I will match him honestly. Engineers: ask about architecture, data quality, testing, or benchmarks. Anyone: ask about a company (PayPal, HCA, Zensar, Titan), a tool (Kafka, dbt, Spark, DuckDB), his certifications, education, location, or availability.\n\nParty tricks: ask for a joke or a fun fact. I have several, and they are all, technically, about data quality.'}
+  ];
+
+  function answerFree(text){
+    var t = ' ' + text.toLowerCase() + ' ';
+    var generic = ['experience','background','career','work history','skill','stack','technologies','tech','tools','cloud','project','contact','reach','hire','hiring'];
+    var best = null, bestLen = 0, bestGeneric = null, genLen = 0;
+    for(var i=0;i<QA.length;i++){
+      for(var j=0;j<QA[i].keys.length;j++){
+        var k = QA[i].keys[j];
+        if(t.indexOf(k) === -1) continue;
+        if(generic.indexOf(k) !== -1){ if(k.length > genLen){ bestGeneric = QA[i]; genLen = k.length; } }
+        else if(k.length > bestLen){ best = QA[i]; bestLen = k.length; }
+      }
+    }
+    var chosen = best || bestGeneric;
+    if(chosen){
+      if(chosen.act === 'joke'){ botSay(JOKES[jokeIdx % JOKES.length], ASK_CHIPS); jokeIdx++; return; }
+      if(chosen.act === 'funfact'){ botSay(FACTS[factIdx % FACTS.length], ASK_CHIPS); factIdx++; return; }
+      botSay(chosen.text, ASK_CHIPS); return;
+    }
+    botSay('That one is outside my knowledge base, and I would rather admit it than improvise in his voice. He is very particular about that. It is basically Rule 06 around here: never claim what you have not earned.\n\nHere is what I know cold. Pick one, or name a company, a cloud, or a tool.', ASK_CHIPS);
+  }
+
+  function showLeadForm(){
+    var wrap = document.createElement('div');
+    wrap.className = 'msg bot';
+    wrap.innerHTML = 'Leave your details here. This page has no inbox of its own, so this builds an intro note and an email addressed to Praneeth. You send it, nothing is stored here.' +
+      '<div class="lead-box" style="margin-top:10px">' +
+      '<label for="lf-name">Your name</label><input id="lf-name" type="text" autocomplete="name">' +
+      '<label for="lf-company">Company</label><input id="lf-company" type="text">' +
+      '<label for="lf-role">Role you are hiring for</label><input id="lf-role" type="text" placeholder="e.g. Senior Data Engineer, Azure">' +
+      '<label for="lf-contact">Your email or LinkedIn</label><input id="lf-contact" type="text">' +
+      '<div class="lead-actions">' +
+      '<button class="btn btn-teal" id="lf-copy" type="button">Copy intro note</button>' +
+      '<a class="btn btn-dark" id="lf-mail" href="#">Email it to Praneeth</a>' +
+      '<a class="btn btn-outline" href="' + LINKS.linkedin + '" target="_blank" rel="noopener">Message on LinkedIn</a>' +
+      '</div><p id="lf-done" style="font-size:13px;color:var(--muted);margin:10px 0 0"></p></div>';
+    body.appendChild(wrap); scrollDown();
+    setQuick(ASK_CHIPS);
+    function buildNote(){
+      var n = document.getElementById('lf-name').value.trim() || 'I';
+      var c = document.getElementById('lf-company').value.trim();
+      var r = document.getElementById('lf-role').value.trim() || 'a Data Engineer role';
+      var ct = document.getElementById('lf-contact').value.trim();
+      return 'Hi Praneeth, I am ' + n + (c ? ' from ' + c : '') + '. I found your profile through your assistant page. I am hiring for ' + r + ' and your background looks like a strong match. ' + (ct ? 'You can reach me at ' + ct + '. ' : '') + 'Would you be open to a short conversation this week?';
+    }
+    function refreshMail(){
+      var a = document.getElementById('lf-mail');
+      a.href = LINKS.email + '?subject=' + encodeURIComponent('Data Engineer role intro') + '&body=' + encodeURIComponent(buildNote());
+    }
+    ['lf-name','lf-company','lf-role','lf-contact'].forEach(function(id){
+      document.getElementById(id).addEventListener('input', refreshMail);
+    });
+    refreshMail();
+    document.getElementById('lf-copy').addEventListener('click', function(){
+      if(navigator.clipboard) navigator.clipboard.writeText(buildNote());
+      document.getElementById('lf-done').textContent = 'Copied. Paste it into LinkedIn or email and send it to Praneeth.';
+      refreshMail();
+    });
+  }
+
+
+  var chatHistory = [];
+  async function liveAnswer(text){
+    var t = document.createElement('div');
+    t.className = 'typing'; t.textContent = 'thinking in SQL...';
+    body.appendChild(t); scrollDown();
+    try {
+      var res = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: chatHistory.concat([{role:'user', content:text}]).slice(-8)})});
+      if(!res.ok) throw new Error('backend unavailable');
+      var data = await res.json();
+      chatHistory.push({role:'user', content:text}, {role:'assistant', content:data.reply});
+      chatHistory = chatHistory.slice(-8);
+      t.remove(); addMsg(data.reply, 'bot'); setQuick(ASK_CHIPS);
+    } catch(e) {
+      t.remove(); answerFree(text);
+    }
+  }
+
+  function handleUser(label, action){
+    addMsg(label, 'user');
+    if(action){
+      if(action === 'type-recruiter') return recruiterFlow();
+      if(action === 'type-engineer') return engineerFlow();
+      if(action === 'type-browsing') return browsingFlow();
+      if(action.indexOf('role-') === 0) return roleAnswer(action);
+      if(action === 'lead-form'){ botSay('Of course. Fill this in and send it his way. He reads these himself.', []); setTimeout(showLeadForm, 500); return; }
+      if(action === 'ask-more'){ botSay('Ask me anything about him. A company, a cloud, a tool, the project, or even a joke. I have range.', ASK_CHIPS); return; }
+      if(action === 'q-joke'){ botSay(JOKES[jokeIdx % JOKES.length], ASK_CHIPS); jokeIdx++; return; }
+      if(action === 'q-funfact'){ botSay(FACTS[factIdx % FACTS.length], ASK_CHIPS); factIdx++; return; }
+      if(action === 'q-why') return answerFree('why hire him');
+      if(action === 'q-experience') return answerFree('experience');
+      if(action === 'q-project') return answerFree('taxi project');
+      if(action === 'q-skills') return answerFree('skills');
+      if(action === 'q-contact') return answerFree('contact');
+      if(action === 'eng-arch') return answerFree('architecture');
+      if(action === 'eng-quality') return answerFree('data quality');
+      if(action === 'eng-speed') return answerFree('gold layer speed');
+      if(action === 'eng-tests') return answerFree('testing ci docker');
+      if(action === 'eng-read'){ botSay('Here is the full write up, 12 sections with code snippets and the benchmark tables: ' + LINKS.devto + '\n\nAnd the repo itself: ' + LINKS.github, ASK_CHIPS); return; }
+    }
+    liveAnswer(label);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = input.value.trim();
+    if(!v) return;
+    input.value = '';
+    handleUser(v, null);
+  });
+
+  setTimeout(function(){ if(!panel.classList.contains('open')) openChat(); }, 600);
+})();
+</script>
+</body>
+</html>
