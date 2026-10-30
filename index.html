@@ -619,7 +619,7 @@
   }
   function botSay(text, chips){
     var t = document.createElement('div');
-    t.className = 'typing'; t.textContent = 'thinking in SQL...';
+    t.className = 'typing'; t.textContent = 'Praneeth's assistant is thinking...';
     body.appendChild(t); scrollDown();
     setTimeout(function(){ t.remove(); addMsg(text, 'bot'); setQuick(chips || []); }, 430);
   }
@@ -823,7 +823,7 @@
   var chatHistory = [];
   async function liveAnswer(text){
     var t = document.createElement('div');
-    t.className = 'typing'; t.textContent = 'thinking in SQL...';
+    t.className = 'typing'; t.textContent = 'Praneeth's assistant is thinking...';
     body.appendChild(t); scrollDown();
     try {
       var res = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: chatHistory.concat([{role:'user', content:text}]).slice(-8)})});
