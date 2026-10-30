@@ -14,7 +14,8 @@ export default async function handler(req, res) {
   if (spendUsd + 0.02 > Number(process.env.MONTHLY_SPEND_CAP_USD || 50)) return res.status(503).json({error: "Pitch generator is paused for this month."});
   const jd = (req.body?.jobDescription || "").trim();
   if (!jd || jd.length < 20) return res.status(400).json({error: "Paste a fuller job description, at least a role title and a few requirements."});
-  const r = await fetch(API_URL, {method: "POST", headers: {"Content-Type": "application/json", "Authorization": "Bearer " + process.env.META_API_KEY}, body: JSON.stringify({model: MODEL, messages: [{role: "system", content: SYSTEM_PROMPT}, {role: "user", content: "Job description:\n" + jd.slice(0, 8000)}], max_tokens: 4000, temperature: 0.7})});
+  let r;
+  try { r = await fetch(API_URL, {method: "POST", headers: {"Content-Type": "application/json", "Authorization": "Bearer " + process.env.META_API_KEY}, body: JSON.stringify({model: MODEL, messages: [{role: "system", content: SYSTEM_PROMPT}, {role: "user", content: "Job description:\n" + jd.slice(0, 8000)}], max_tokens: 2000, reasoning_effort: "low", temperature: 0.7})}); } catch (e) { return res.status(502).json({error: "AI service is unavailable right now."}); }
   if (!r.ok) return res.status(502).json({error: "AI service is unavailable right now."});
   const data = await r.json();
   spendUsd += 0.02;
